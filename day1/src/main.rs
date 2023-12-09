@@ -4,7 +4,7 @@ use std::fs;
 
 fn main() {
     let file_path = "./input.txt";
-    let mut total = 0;
+    let mut sum = 0;
 
     let contents = fs::read_to_string(file_path)
         .expect("Should have been able to read the file.");
@@ -20,10 +20,16 @@ fn main() {
             }
         }
 
-        if let Ok(num) = double_digit.parse::<i32>() {
-            total += num;
+        if !double_digit.is_empty() {
+            let first = double_digit.chars().nth(0).unwrap();
+            let last = double_digit.chars().rev().nth(0).unwrap();
+            
+            let combined = first.to_string() + &last.to_string();
+            let combined_number = combined.parse::<i32>().unwrap();
+
+            sum += combined_number
         }
     }
 
-    println!("{}", total);
+    println!("{}", sum);
 }
